@@ -14,3 +14,76 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+var counter = 1;
+
+$(document).ready(function () {
+  getJsonData();
+ 	getTimer();
+});
+
+/**
+ * @brief Starts a timer for a countdown
+ */
+function start_timer() {
+  var time = document.getElementById("running").innerHTML;
+  timer(time);
+}
+
+/**
+ * @brief Formats the timer format
+ *
+ * The new format is: <dd:hh:mm:ss>
+ *
+ * @param secs Time in seconds
+ * @return Time in: <dd:hh:mm:ss>
+ */
+function formatTime(secs) {
+  day = Math.floor(secs / (60 * 60* 24));
+  hour = Math.floor(secs / (60 * 60) % 24);
+  min = Math.floor((secs / 60) % 60);
+  sec = Math.floor(secs % 60);
+
+  day = ((day < 10 ? "0" : "") + day);
+  hour = ((hour < 10 ? "0" : "") + hour);
+  min = ((min < 10 ? "0" : "") + min);
+  sec = ((sec < 10 ? "0" : "") + sec);
+
+  return day + ":" + hour + ":" + min + ":" + sec;
+}
+
+/**
+ * @brief Recursive timer countdown call
+ *
+ * Sets running element to time
+ *
+ * @param time The remaining time
+ */
+function timer(time) {  
+  if(time > 0) {
+    document.getElementById("running").innerHTML = formatTime(time);
+    window.setTimeout('timer('+ (--time) +')',1000);
+  } else {
+    window.location.reload();
+    window.location.reload();
+  }
+}
+
+function getTimer() {
+	setInterval(
+		function(){
+      getJsonData();
+		},
+		5000
+	);
+}
+
+function getJsonData() {
+  $.getJSON('/home/get_json_data').done(function(data) {
+    if(parseInt(data.msg) != 0)
+      $("#notification-text").html(data.msg);
+    $("#val-metal").html(data.metal);
+    $("#val-crystal").html(data.crystal);
+    $("#val-fuel").html(data.fuel);
+  });
+}

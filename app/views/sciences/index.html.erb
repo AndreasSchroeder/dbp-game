@@ -1,0 +1,71 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Forschung</h1>
+
+<table id="table_sciences">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Metall</th>
+      <th>Kristall</th>
+      <th>Treibstoff</th>
+      <th>Dauer</th>
+      <th>Stufe</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% current_user.science_instances.sort_by{|instance| instance.science.science_condition_id}.each do |science_instance| %>
+     <% inactive = nil %>
+     <% if(science_instance.start_time.nil?) %>
+       <tr id="inactive">
+       <% inactive = true %>
+     <% else %>
+       <tr id="active">
+       <% inactive = false %>
+     <% end %>
+
+     <% if(science_instance.id) %>
+       <% science = science_instance.science %>
+        <td>
+          <a>
+            <img src= "<%= image_url("science_icons/" + science.icon)%>", width="50", height="50", id="icon">
+          <span><%= Message.find_by_code(science.id).mes %></span></a>
+        </td>
+        <td><%= science.name %></td>
+        <td><%= metal = science.get_metal_cost(science_instance.level) %></td>
+        <td><%= crystal = science.get_crystal_cost(science_instance.level) %></td>
+        <td><%= fuel = science.get_fuel_cost(science_instance.level) %></td>
+
+        <% if(inactive) %>
+          <td id = "not_running"><%= Science.update_time(science_instance, true).to_s %></td>
+        <% else %>
+          <td id = "running"><%= Science.update_time(science_instance, false).to_s %></td>
+          <%= javascript_tag "start_timer()" -%>
+        <% end %>
+        <% availability = current_user.check_condition(science.condition) && !current_user.is_researching &&
+          current_user.has_enough_resources(metal, crystal, fuel) %>
+        <td><%= science_instance.level %>
+
+        <% if availability %>
+          <td><%= button_to 'Forschen', research_science_instance_path(science_instance), method: :get %></td>
+        <% else %>
+          <% if(inactive) %>
+            <td><a>Nicht verfügbar<span><%= science_instance.get_conditions() %></span></a></td>
+          <% else %>
+            <td><a><%= button_to 'Abbrechen', cancel_research_science_instance_path(science_instance), method: :get %>
+                       <span><%= science_instance.get_refund %></span></a>
+            <td><%= button_to 'Sofort', instant_research_science_instance_path(science_instance), method: :get %></td>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </tr>
+  </tbody>
+</table>
+<br>
+<%= link_to 'New Science', new_science_path %>
+<%= link_to 'LevelCheat', science_instances_path %>

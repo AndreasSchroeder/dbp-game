@@ -1,4 +1,61 @@
 Rails.application.routes.draw do
+
+  resources :units
+  resources :damage_types
+  resources :fighting_fleets do
+    resources :ship_groups
+    resources :fights 
+  end
+  resources :sciences
+  resources :science_instances do
+    member do
+      get 'research'
+      get 'cancel_research'
+      get 'instant_research'
+    end
+  end
+
+  resources :user_ships
+  resources :notifications
+  resources :messages
+  resources :stations
+  resources :science
+  resources :ranks
+  resources :user_icons
+  resources :ships
+  resources :ships_station  
+
+  resources :trades do
+    member do
+      get 'buy'
+    end
+  end
+
+    #nesting resources ships --> ships_stations
+  resources :ships do
+    member do
+      get 'cheat'
+    end
+    resources :ships_stations
+  end
+
+  get 'home/index'
+  get 'home/get_json_data', defaults: {format: 'json'}
+  get 'profile/index'
+  get 'profile/user'
+  get 'home/index'
+
+
+  devise_for :users
+  devise_scope :user do
+    authenticated :user do
+      root :to => 'home#index'
+    end
+    unauthenticated :user do
+      root :to => 'home#index', as: :unauthenticated_root
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

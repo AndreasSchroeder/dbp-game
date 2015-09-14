@@ -1,0 +1,57 @@
+<% if user_signed_in? %>
+  <br>
+  <h2 class="userlabel">Benutzerprofil ändern</h2>
+  <div>
+    <p class="userlabel">von Spieler <%= current_user.username %></p>
+  </div>
+  <% if UserIcon.find_by_user_id(current_user.id) != nil %>
+    <img id="user_icon_profile" src="<%= image_url(UserIcon.find_by_user_id(current_user.id).image.url) %>"><br>
+    <div>
+      <p class="userbutton"><%= link_to 'Benutzerbild ändern', edit_user_icon_path(UserIcon.find_by_user_id(current_user.id)) %></p>
+      <p class="userbutton">
+      <%= link_to 'Benutzerbild entfernen', UserIcon.find_by_user_id(current_user.id), method: :delete, data: { confirm: 'Bist du dir sicher?' } %></p>
+    </div>
+  <% else %>
+    <img id="user_icon_profile" src="<%= image_url('ui/default.png') %>"><br>
+    <p class="userbutton">
+      <%= link_to 'Benutzerbild hochladen', new_user_icon_path %>
+    </p>
+
+  <% end %>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="field">
+      <p class="userlabel"><%= f.label :email %></p><br />
+      <p class="usertextfield"><%= f.email_field :email, autofocus: true %></p>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="field">
+      <p class="userlabel"><%= f.label "Neues Passwort eingeben" %></p> <br />
+      <p class="usertextfield"><%= f.password_field :password, autocomplete: "off" %></p>
+    </div>
+
+    <div class="field">
+      <p class="userlabel"><%= f.label "Passwort bestätigen" %></p><br />
+      <p class="usertextfield"><%= f.password_field :password_confirmation, autocomplete: "off" %></p>
+    </div>
+
+    <div class="field">
+      <p class="userlabel"><%= f.label "Aktuelles Passwort wird zur Bestätigung benötigt" %></p><br />
+      <p class="usertextfield"><%= f.password_field :current_password, autocomplete: "off" %></p>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Update", :class => 'submitbutton' %>
+    </div>
+  <% end %>
+
+  <h3 class="userlabel">Du möchtest deinen Account löschen?</h2>
+
+  <p><%= button_to "Account löschen", registration_path(resource_name), data: { confirm: "Bist du sicher?" }, method: :delete, :class => 'submitbutton' %></p>
+<% end %>

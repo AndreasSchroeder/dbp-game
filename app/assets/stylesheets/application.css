@@ -13,3 +13,334 @@
  *= require_tree .
  *= require_self
  */
+
+ /** Main - Settings **/
+html,body {
+	margin: 0 auto;
+	background: url('ui/background.jpg');
+}
+
+a, a:visited {
+	color: #FFFF00;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+ul li {
+	background-image: url('ui/marker.png');
+	background-repeat: no-repeat;
+	background-position: 0px center;
+	background-size: 20px 20px;
+	margin: 30px 0 0 10px;
+}
+
+#wrapper {
+	position: relative;
+	width: auto;
+	height: 900px;
+	padding: 25px 50px 1px 50px;
+	opacity: 0.85;
+}
+
+#top {
+	position: static;
+	width: 100%;
+	height: 15%;
+	top: 0%;
+}
+
+#login {
+	position: relative;
+	width: 10%;
+	height: 100%;
+	max-width: 10%;
+	max-height: 100%;
+	display: inline-block;
+	top: 0;
+}
+
+#banner {
+	position: relative;
+	width: 90%;
+	height: 100%;
+	max-width: 90%;
+	max-height: 100%;
+	background-image: url('ui/banner.jpg');
+	background-size: 100% 100%;
+}
+
+#mid {
+	position: static;
+	width: 100%;
+	height: 10%;
+	top: 15%;
+}
+
+#ranking {
+	position: relative;
+	width: 10%;
+	height: 100%;
+	max-width: 10%;
+	max-height: 100%;
+}
+
+#resources {
+	position: relative;
+	width: 90%;
+	height: 100%;
+	max-width: 90%;
+	max-height: 100%;
+}
+
+#botm {
+	position: static;
+	width: 100%;
+	height: 75%;
+	top: 25%;
+}
+
+#menu-wrapper {
+	position: relative;
+	width: 10%;
+	height: 100%;
+	float: left;
+}
+
+#menu {
+	position: relative;
+	width: 100%;
+	height: 90%;
+	top: 0%;
+}
+
+#notification {
+	position: relative;
+	width: 100%;
+	height: 10%;
+	top: 0%;
+}
+
+#game {
+	position: relative;
+	width: 90%;
+	height: 100%;
+	max-width: 90%;
+	max-height: 100%;
+	overflow-y: scroll;
+}
+
+.content {
+	position: relative;
+	display: table;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 10px;
+	border: 2px solid white;
+	box-shadow: 10px 10px #5A5A5A;
+	box-sizing: border-box;
+	background-color: #000066;
+}
+
+.login_text {
+	font-size: 90%;
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+.tooltip {
+	position: relative;
+	float: left;
+	width: 40px;
+	height: 40px;
+	background-size: contain;
+}
+
+.tooltip:hover:after {
+	position: absolute;
+	background: #333;
+	border-radius: 5px;
+	width: 220px;
+	bottom: 25px;
+	left: 20%;
+	padding: 5px 15px;
+	z-index: 1;
+	content: attr(data-tooltip);
+}
+
+.field {
+	position: relative;
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#user_icon {
+	position: relative;
+	width: 40px;
+	height: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 2px solid red;
+	background-color: white;
+	border-radius: 5px;
+}
+
+#user_icon_edit {
+	position: relative;
+	width: 8%;
+	height: 8%;
+}
+
+#user_icon_profile {
+	background-color: white;
+	position: relative;
+	width: 8%;
+	height: 8%;
+	border-radius: 5px;
+	border: 2px solid red;
+}
+
+.userlabel {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: auto;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.usertextfield {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: auto;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.userlogintextfield {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: 80%;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.userbutton {
+	margin: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	width: auto;
+	display: inline-block;
+	background-color: white;
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+
+.userbutton a {
+	color: black;
+}
+
+.submitbutton {
+	font-weight: bold;
+	border: 2px solid black;
+	border-radius: 5px;
+}
+
+.userbutton:hover {
+	background-color: black;
+}
+
+.userbutton:hover a {
+	color: white !important;
+}
+
+#notification-image {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	left: calc(50% - 25px);
+}
+
+
+#notification-text {
+	position: absolute;
+	color: #FFF;
+	left: calc(50% - 5px);
+	background-color: red;
+	font-weight: bold;
+	border: 2px solid red;
+	border-radius: 5px;
+}
+
+#game_name {
+	position: absolute;
+	bottom: 25px;
+	left: 50px;
+}
+
+#rank_table {
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+#error_explanation {
+	position: absolute;
+	color: #000;
+	top: 100px;
+	left: 100px;
+	z-index: 2;
+}
+
+
+#res-table {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#res-metal {
+	background-image: url('resources/metal.png');
+}
+
+#res-crystal {
+	border: 0;
+	background-image: url('resources/crystal.png');
+}
+
+#res-fuel {
+	border: 0;
+	background-image: url('resources/fuel.png');
+}
+
+.val-resources {
+	font-weight: bold;
+	float: left;
+	margin-left: 5px;
+}

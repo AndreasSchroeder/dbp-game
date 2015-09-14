@@ -15,3 +15,9 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore vendored gems
+/vendor/bundle
+
+# Ignore uploaded files
+/public/system
